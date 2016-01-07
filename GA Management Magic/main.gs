@@ -20,8 +20,8 @@ function onOpen(e) {
       menu.addItem('List filters', 'requestFilterList')
       .addItem('Update filters', 'requestFilterUpdate')
       .addSeparator()
-      .addItem('List custom dimensions', 'requestDimensionList')
-      .addItem('Update custom dimensions', 'requestDimensionUpdate')
+      .addItem('List custom dimensions', 'requestCDList')
+      .addItem('Update custom dimensions', 'requestCDUpdate')
       .addSeparator()
       .addItem('List custom metrics', 'requestMetricList')
       .addItem('Update custom metrics', 'requestMetricUpdate')
@@ -31,8 +31,8 @@ function onOpen(e) {
       menu.addItem('List filters', 'requestFilterList')
       .addItem('Update filters', 'requestFilterUpdate')
       .addSeparator()
-      .addItem('List custom dimensions', 'requestDimensionList')
-      .addItem('Update custom dimensions', 'requestDimensionUpdate')
+      .addItem('List custom dimensions', 'requestCDList')
+      .addItem('Update custom dimensions', 'requestCDUpdate')
       .addSeparator()
       .addItem('List custom metrics', 'requestMetricList')
       .addItem('Update custom metrics', 'requestMetricUpdate')
@@ -40,29 +40,18 @@ function onOpen(e) {
       .addItem('About this Add-on','about');
     }
     menu.addToUi();
-    
-    // send Measurement Protocol hitType to Google Analytics
-      mpHit(ss.getUrl(),'open');    
+     
   } catch (e) {
     Browser.msgBox(e.message);
   }
 }
 
-/**************************************************************************
-* Edit function runs when the application is edited
-*/
-function onEdit(e) {
-  // send Measurement Protocol hitType to Google Analytics
-  mpHit(ss.getUrl(),'edit');
-}
 
 /**************************************************************************
 * Install function runs when the application is installed
 */
 function onInstall(e) {
   onOpen(e);
-  // send Measurement Protocol hitType to Google Analytics
-  mpHit(ss.getUrl(),'install');
 }
 
 /**
@@ -75,45 +64,6 @@ function about() {
   .setWidth(300);
   
   SpreadsheetApp.getUi().showSidebar(html);
-}
-
-/**************************************************************************
-* Example function for Google Analytics Measurement Protocol.
-* @param {string} tid Tracking ID / Web Property ID
-* @param {string} url Document location URL
-* @return {string} HTTP response
-*/
-function mpHit(url, intent, label, value){
-  if (intent == 'open'|| intent == 'edit' || intent == 'install' || intent == '') {
-    var hitType = 'pageview';
-    var category, action, label, value = '';
-  } else {
-    var hitType = 'event';
-    var category = 'interaction';
-    var action = intent;
-  }
-  
-  var v = '1';
-  var tid = 'UA-42086200-17';
-  var cid = generateUUID_();
-  var z = Math.floor(Math.random()*10E7);
-  var ds = 'web';
-  var dr = encodeURIComponent('GA Management Magic Addon');
-  var dl = encodeURIComponent(url);
-  var el = encodeURIComponent(label);
-  
-  var hit = "https://www.google-analytics.com/collect?"
-  +"v="+ v
-  +"&tid="+ tid
-  +"&cid="+ cid
-  +"&z="+ z
-  +"&t="+ hitType
-  +"&ds="+ ds
-  +"&dr="+ dl
-  +"&dl="+ dl;  
-  if (hitType == 'event') hit = hit +"&ec="+ category +"&ea="+ action +"&el="+ el +"&ev="+ value;
-  
-  return UrlFetchApp.fetch(hit).getHeaders();
 }
 
 // http://stackoverflow.com/a/2117523/1027723
