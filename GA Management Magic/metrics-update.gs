@@ -69,9 +69,6 @@ function updateCustomMetrics(property) {
                 property);
             }
             
-            // send Measurement Protocol hit to Google Analytics
-            //mpHit(ss.getUrl(),'update custom metrics');
-            
           }
         }
       } catch (error) {

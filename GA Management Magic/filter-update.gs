@@ -139,11 +139,5 @@ function updateFilters() {
     }
   }
   
-  // send Measurement Protocol hit to Google Analytics
-  var label = accountsUpdated;
-  var value = numFiltersUpdated;
-  var httpResponse = mpHit(SpreadsheetApp.getActiveSpreadsheet().getUrl(),'update filters',label,value);
-  Logger.log(httpResponse);
-  
   return "success";
 }

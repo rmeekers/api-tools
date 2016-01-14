@@ -106,11 +106,5 @@ function formatFilterSheet(createNew) {
   overrideOutputFieldCol.setDataValidation(tfRule);
   caseCol.setDataValidation(tfRule);
   
-  // send Measurement Protocol hit to Google Analytics
-  var label = '';
-  var value = '';
-  var httpResponse = mpHit(SpreadsheetApp.getActiveSpreadsheet().getUrl(),'format list sheet',label,value);
-  Logger.log(httpResponse);
-  
   return sheet.getSheetName();
 }
