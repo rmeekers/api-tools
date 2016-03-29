@@ -90,22 +90,16 @@ function formatDimensionSheet(createNew) {
     
     // Scope Column: modify data validation values
     var scopeValues = ['USER','SESSION','HIT','PRODUCT'];
-    var scopeRule = SpreadsheetApp.newDataValidation().requireValueInList(scopeValues, true).build();
+    var scopeRule = SpreadsheetApp.newDataValidation().setAllowInvalid(false).requireValueInList(scopeValues, true).build();
     scopeCol.setDataValidation(scopeRule);
     
     // Active Column: modify data validation values
     var activeValues = ['TRUE','FALSE'];
-    var activeRule = SpreadsheetApp.newDataValidation().requireValueInList(activeValues, true).build();
+    var activeRule = SpreadsheetApp.newDataValidation().setAllowInvalid(false).requireValueInList(activeValues, true).build();
     activeCol.setDataValidation(activeRule);
   } catch (e) {
     return "failed to set the header values and format ranges\n"+ e.message;
   }
-  
-  // send Measurement Protocol hit to Google Analytics
-  var label = '';
-  var value = '';
-  var httpResponse = mpHit(SpreadsheetApp.getActiveSpreadsheet().getUrl(),'format dimension sheet',label,value);
-  Logger.log(httpResponse);
   
   return sheet;
 }

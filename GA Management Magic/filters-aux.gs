@@ -95,12 +95,12 @@ function formatFilterSheet(createNew) {
   
   // Type Column: modify data validation values.
   var typeValues = ['INCLUDE', 'EXCLUDE', 'LOWERCASE', 'UPPERCASE', 'SEARCH_AND_REPLACE', 'ADVANCED'];
-  var typeRule = SpreadsheetApp.newDataValidation().requireValueInList(typeValues, true).build();
+  var typeRule = SpreadsheetApp.newDataValidation().setAllowInvalid(false).requireValueInList(typeValues, true).build();
   typeCol.setDataValidation(typeRule);
   
   // Set data validation for T/F columns (fieldA, fieldB, overrideOutputField, caseSensitive)
   var tfValues = ['TRUE', 'FALSE'];
-  var tfRule = SpreadsheetApp.newDataValidation().requireValueInList(tfValues, true).build();
+  var tfRule = SpreadsheetApp.newDataValidation().setAllowInvalid(false).requireValueInList(tfValues, true).build();
   fieldARequiredCol.setDataValidation(tfRule);
   fieldBRequiredCol.setDataValidation(tfRule);
   overrideOutputFieldCol.setDataValidation(tfRule);
